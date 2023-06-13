@@ -1,6 +1,7 @@
 import ContactForm from '../ContactForm';
 import Filter from '../Filter';
 import ContactList from '../ContactList';
+import { Loader } from 'components/Loader/Loader';
 import { Container, PhonebookTitle, ContactsTitle } from './App.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts, getError, getIsLoading } from 'redux/selectors';
@@ -22,7 +23,7 @@ export const App = () => {
       <PhonebookTitle>Phonebook</PhonebookTitle>
       <ContactForm />
       <ContactsTitle>Contacts</ContactsTitle>
-      {isLoading && !error && <p>...Loading</p>}
+      {isLoading && !error && <Loader />}
       {contacts.length > 0 ? (
         <>
           <Filter />

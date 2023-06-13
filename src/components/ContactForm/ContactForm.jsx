@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
-// import { nanoid } from 'nanoid';
 import { BsPersonFillAdd } from 'react-icons/bs';
 import { validationSchema } from '../../utils';
 import Modal from '../Modal';

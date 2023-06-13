@@ -11,8 +11,6 @@ const ContactList = () => {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
 
-  const handleDeleteContact = contactId => dispatch(deleteContact(contactId));
-
   const visibleContacts = contacts
     .filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
@@ -28,7 +26,7 @@ const ContactList = () => {
             index={index}
             name={name}
             number={number}
-            onClick={() => handleDeleteContact(id)}
+            onClick={() => dispatch(deleteContact(id))}
           />
         ))}
       </ContactsList>
