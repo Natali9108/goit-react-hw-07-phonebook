@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { ContactsItem } from './ContactItem';
 import { ContactsList } from './ContactList.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeContact } from 'redux/contactsSlice';
+import { deleteContact } from 'redux/contactsOperations';
 import { getContacts, getFilter } from 'redux/selectors';
 
 const ContactList = () => {
@@ -11,9 +11,7 @@ const ContactList = () => {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
 
-  const handleDeleteContact = contactId => {
-    dispatch(removeContact(contactId));
-  };
+  const handleDeleteContact = contactId => dispatch(deleteContact(contactId));
 
   const visibleContacts = contacts
     .filter(contact =>

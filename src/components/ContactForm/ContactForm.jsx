@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import { BsPersonFillAdd } from 'react-icons/bs';
 import { validationSchema } from '../../utils';
 import Modal from '../Modal';
 import ButtonIcon from '../ButtonIcon';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/contactsOperations';
 import { getContacts } from 'redux/selectors';
 import { useToggle } from 'hooks';
 import {
@@ -39,7 +39,6 @@ const ContactForm = () => {
       return;
     }
     const contact = {
-      id: nanoid(),
       name,
       number,
     };
