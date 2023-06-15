@@ -1,18 +1,19 @@
+import { Toaster } from 'react-hot-toast';
 import ContactForm from '../ContactForm';
 import Filter from '../Filter';
 import ContactList from '../ContactList';
 import { Loader } from 'components/Loader/Loader';
 import { Container, PhonebookTitle, ContactsTitle } from './App.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getError, getIsLoading } from 'redux/selectors';
+import { selectContacts, selectError, selectIsLoading } from 'redux/selectors';
 import { useEffect } from 'react';
 import { fetchContacts } from 'redux/contactsOperations';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
-  const contacts = useSelector(getContacts);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+  const contacts = useSelector(selectContacts);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -23,6 +24,7 @@ export const App = () => {
       <PhonebookTitle>Phonebook</PhonebookTitle>
       <ContactForm />
       <ContactsTitle>Contacts</ContactsTitle>
+      {error && <p>{error.message}</p>}
       {isLoading && !error && <Loader />}
       {contacts.length > 0 ? (
         <>
@@ -32,6 +34,14 @@ export const App = () => {
       ) : (
         <p>Add your contacts to the phonebook</p>
       )}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            fontSize: '18px',
+          },
+        }}
+      />
     </Container>
   );
 };

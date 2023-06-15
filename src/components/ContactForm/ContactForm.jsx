@@ -1,12 +1,12 @@
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { BsPersonFillAdd } from 'react-icons/bs';
+import { toast } from 'react-hot-toast';
 import { validationSchema } from '../../utils';
 import Modal from '../Modal';
 import ButtonIcon from '../ButtonIcon';
 import { addContact } from 'redux/contactsOperations';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 import { useToggle } from 'hooks';
 import {
   PhonebookForm,
@@ -23,18 +23,22 @@ const ContactForm = () => {
   };
   const { isOpen, toggle } = useToggle();
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
   const handleSubmit = (values, actions) => {
     const { name, number } = values;
 
-    const isExist = contacts.find(
-      contact =>
-        contact.name.toLowerCase() === name.toLowerCase() ||
-        contact.number === number
+    const isNameExist = contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
     );
-    if (isExist) {
-      alert(`This contact is already in contacts.`);
+    const isNumberExist = contacts.find(contact => contact.number === number);
+
+    if (isNameExist) {
+      toast.error(`Contact '${name}' is already in contacts.`);
+      return;
+    }
+    if (isNumberExist) {
+      toast.error(`Contact with phone '${number}' is already in contacts `);
       return;
     }
     const contact = {
@@ -43,7 +47,7 @@ const ContactForm = () => {
     };
 
     dispatch(addContact(contact));
-
+    toast.success(`Contact '${name}' added 👏`);
     actions.resetForm();
     toggle();
   };
