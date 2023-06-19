@@ -11,8 +11,9 @@ export const ContactsItem = ({ index, id, name, number }) => {
   const dispatch = useDispatch();
 
   const handleRemoveContact = () => {
-    dispatch(deleteContact(id));
-    toast.success(`Contact '${name}' deleted `);
+    dispatch(deleteContact(id))
+      .then(toast.success(`Contact '${name}' deleted `))
+      .catch(er => toast.error(er.message));
   };
   return (
     <>

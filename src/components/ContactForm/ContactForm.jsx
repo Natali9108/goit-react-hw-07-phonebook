@@ -46,8 +46,10 @@ const ContactForm = () => {
       number,
     };
 
-    dispatch(addContact(contact));
-    toast.success(`Contact '${name}' added 👏`);
+    dispatch(addContact(contact))
+      .then(toast.success(`Contact '${name}' added 👏`))
+      .catch(er => toast.error(er.message));
+
     actions.resetForm();
     toggle();
   };
